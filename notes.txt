@@ -1,0 +1,223 @@
+
+ONE TIME PAD ATTACK
+
+SETTINGS/METADATA											OUTPUT					
+===================================================================================================================
+
+Input
+-------------------------------------------------------------------------------------------------------------------
+0: ["asdfasdfasdfasdfasdfasdfasdfasdf"]						asdfasdfasdfasdfasdfasdfasdfasdf
+
+Generator
+-------------------------------------------------------------------------------------------------------------------
+0: markov (type: words true, ngram: 2)													
+															the fulton
+															the cherokee
+
+Converter
+-------------------------------------------------------------------------------------------------------------------
+0: onetimepad (key: markov[0], mode: decrypt)								
+															zxywzxywzxywzxywzxywzxywzxywzxyw
+															zxywzxywzxywzxywzxywzxywzxywzxyw
+															zxywzxywzxywzxywzxywzxywzxywzxyw
+
+Filter
+-------------------------------------------------------------------------------------------------------------------
+0: ngram (ngram: 5, limit: 100)
+	the fulton 												zxywzxywzxywzxywzxywzxywzxywzxyw
+	the cherokee											zxywzxywzxywzxywzxywzxywzxywzxyw										
+
+Output
+-------------------------------------------------------------------------------------------------------------------
+0: the fulton 												zxywzxywzxywzxywzxywzxywzxywzxyw
+1: the cherokee												zxywzxywzxywzxywzxywzxywzxywzxyw
+2: the fulton 												zxywzxywzxywzxywzxywzxywzxywzxyw
+3: the cherokee												zxywzxywzxywzxywzxywzxywzxywzxyw
+
+
+
+
+@state['input'] = ["asdfasdfadsfasdfasdfasdfasdfasdf"]
+@state['generators'] = [{"name"=> "markov", "settings"=>{"type"=>"words", "ngram"=>2}, "output"=>["the fulton", "the cherokee"...]}]
+@state['converters'] =[{"name"=> "onetimepad", "settings"=>{"key"=>"markov[0]"}}]
+@state['filters'] = [{"name"=>"ngram", "settings"=>{"ngram":5}, "metadata"=>["the fulton", "the cherokee"], "output"=>["zxywzxywzxywzxywzxywzxywzxywzxyw", "zxywzxywzxywzxywzxywzxywzxywzxyw"]}]
+
+
+MULTI-GENERATOR REFERENCING
+
+SETTINGS/METADATA											OUTPUT					
+===================================================================================================================
+
+Input
+-------------------------------------------------------------------------------------------------------------------
+0: ["asdfasdfasdfasdfasdfasdfasdfasdf"]						asdfasdfasdfasdfasdfasdfasdfasdf
+
+Generator
+-------------------------------------------------------------------------------------------------------------------
+0: sequence-0 (1..25)													
+															1
+															2
+															3
+1: readfile ("data/names.txt")								
+															Fred
+															Sam
+															Anna
+2: sequence-1 (1970..2017)													
+															1970
+															1971
+															1972
+Converter
+-------------------------------------------------------------------------------------------------------------------
+0: rot (key: sequence[0])								
+															zxywzxywzxywzxywzxywzxywzxywzxyw
+															zxywzxywzxywzxywzxywzxywzxywzxyw
+															zxywzxywzxywzxywzxywzxywzxywzxyw
+
+Filter
+-------------------------------------------------------------------------------------------------------------------
+0: ngram (ngram: 5)
+	the fulton 												zxywzxywzxywzxywzxywzxywzxywzxyw
+	the cherokee											zxywzxywzxywzxywzxywzxywzxywzxyw	
+
+
+
+> list outputs
+output (default)
+sequence-0
+readfile
+sequence-1
+rot
+ngram
+
+> set rot rot=14
+> set rot rot=1,2,3
+> set rot rot=1..10
+> set rot rot=[0..25]
+> set rot rot=all
+
+
+BASIC CONVERSION
+
+SETTINGS/METADATA											OUTPUT					
+===================================================================================================================
+
+Input
+-------------------------------------------------------------------------------------------------------------------
+0: 															abbbaaabbbaaaaaabaaa
+
+Converter
+-------------------------------------------------------------------------------------------------------------------
+0: replace (a:0, b:1)													
+															01110001110000001000
+1: split (every:5)								
+															01110
+															00111
+															00000
+															...
+2: bin2dec													
+															4
+															7
+															0
+															...
+3. shift (add:97)
+															111
+															104
+															97
+															...
+4. dec2ascii
+															o
+															h
+															a
+															...
+5. join (char:nil)
+															ohai
+
+Output
+-------------------------------------------------------------------------------------------------------------------
+0:															ohai
+
+
+text      =>   "abbbaaabbbaaaaaabaaa"
+replace   =>   a -> 0, b -> 1
+               "01110001110000001000"
+split     =>   Every 5 Char
+               ["01110", "00111", "00000", "01000"]
+convert   =>   Bin to Dec
+               [14, 7, 0, 8]
+shift     =>   +97
+               [111, 104, 97, 105]
+convert   =>   Dec to Ascii
+               ["o", "h", "a", "i"]
+join      =>   "ohai"
+
+
+Decryptonomicon Ideas:
+
+Analysis Modules:
+Palandrome
+Isogram
+Prime
+SubPrime
+Letter Frequency
+
+Convervion Modules:
+Rot13
+
+
+
+Filter Modules:
+Ngram (English)
+Dictionary (Match / Splitter)
+
+
+
+
+Commands:
+set input "asdf"
+set input file "/asdf/asdf"
+
+show state
+
+
+add converter rot
+set converter rot 13
+(or add converter rot 13)
+add converter rot all
+
+if there are multiple converters, must specify line.
+
+
+
+add filter ngram
+set filter ngram 4
+
+(which could also could be done by add filter ngram 4)
+
+add filter dictionary
+set filter dictionary "/asdf/asdf"
+
+Cipher			Options
+--------------------------------------------
+Ceasar 						rotate_key 12
+Affine 						rotate_key 		
+							multiplier_key
+Atbash
+Baconian					mode: enc / dec 	
+							i=j u=v omit?
+Bifid 						omit: j -> i ??
+							alpha_key:
+Caesar Keyed				mode: enc / dec
+							alpha_key:
+Columnar Transposition 		mode: enc / dec
+							numeric_key: 3,4,5,2,1
+Double (clm) Transposition 	mode: enc / dec
+							num_key1: 3,4,5,2,1 num_key2: 4,2,3,5,1
+
+
+Encode
+	Base 64
+	Hex
+	Binary
+	Decimal
+	Ascii value
+	Alphabet
