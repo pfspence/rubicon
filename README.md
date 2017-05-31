@@ -18,6 +18,7 @@ This is an ongoing project to bring a modular approach to solving crypto puzzles
 
 <img src="./images/never_gonna.png" />
 
+In this example we have automatically detected that a ROT 9 will decrypt this text.  This is a simple POC but this can be used with different ciphers and generated keys or wordlists.
 
 ## Ngram Filter
 
