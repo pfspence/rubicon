@@ -4,17 +4,17 @@ This is an ongoing project to bring a modular approach to solving crypto puzzles
 
 ## Usage
 
-&#35; ruby rubicon
+&#35; ruby rubicon.rb
 
-> add input "Evmvi xfeer xzmv pfl lg, evmvi xfeer cvk pfl ufne"
+&gt; add input "Evmvi xfeer xzmv pfl lg, evmvi xfeer cvk pfl ufne"
 
-> add rot
+&gt; add rot
 
-> add ngram
+&gt; add ngram
 
-> set ngram_0 limit=5
+&gt; set ngram_0 limit=5
 
-> run
+&gt; run
 
 ## Example
 <img src="./images/never_gonna.jpg" width="750"/>
