@@ -17,3 +17,8 @@ This is an ongoing project to bring a modular approach to solving crypto puzzles
 > run
 
 <img src="./images/never_gonna.png" />
+
+
+## Ngram Filter
+
+An n-gram model scores sequences of letters by how common they occur in a language. The n-gram filter used in Rubicon is an English language tri-gram. Sentences that have sequences of letters common to English will score higher than those that don't. We can take advantage of this when brute forcing ciphers by scoring all decryptions, and sorting them. Thus we have the most likely decryptions toward the top of the list.
