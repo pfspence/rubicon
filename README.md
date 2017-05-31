@@ -16,7 +16,7 @@ This is an ongoing project to bring a modular approach to solving crypto puzzles
 
 > run
 
-##Example
+## Example
 
 <img src="./images/never_gonna.png" width="750"/>
 
