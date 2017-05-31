@@ -42,7 +42,7 @@ class Ngram
 		scores.sort_by! { |ngram_score| ngram_score.score }.reverse!
 		# puts @settings.inspect, @settings['limit'], @settings['limit'].to_i
 		scores = scores.take(@settings['limit'].to_i)
-		puts scores.inspect
+		# puts scores.inspect
 
 		results = Hash.new
 		results['data'] = []
